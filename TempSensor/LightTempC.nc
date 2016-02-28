@@ -89,7 +89,7 @@ event void RadioControl.stopDone(error_t err) {
   {
     uint16_t celsius = -39.6 + (0.01 * data);
     uint16_t farenheit = (((9.0 * celsius)/5)+32);
-    RADFREQ += LIGHTFREQ;
+    RADFREQ += TEMPFREQ;
     
     printf("\nTemperature is: %d", farenheit);
     if (result == SUCCESS)
