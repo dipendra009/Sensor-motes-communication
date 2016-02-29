@@ -1,4 +1,7 @@
 #include<stdio.h>
+#include "LightTemp.h"
+
+
 #define LIGHTFREQ 1000
 #define TEMPFREQ 2000
 #define LIGHTLIMIT 30
@@ -8,15 +11,13 @@
 module LightTempC @safe()
 {
   uses interface Timer<TMilli> as Timer0;
-  //uses interface Timer<TMilli> as Timer2;
   uses interface Leds;
   uses interface Boot;
-  //uses interface Read<uint16_t> as Light;
   uses interface Read<uint16_t> as Temp;
-  interface Receive;
-  interface AMSend;
-  interface Packet;
-  interface SplitControl as RadioControl;
+  uses interface Receive;
+  uses interface AMSend;
+  uses interface Packet;
+  uses interface SplitControl as RadioControl;
     
 }
 
@@ -88,6 +89,7 @@ event void RadioControl.stopDone(error_t err) {
   */
   event void Temp.readDone(error_t result, uint16_t data)
   {
+    radio_sense_msg_t* rsm;
     uint16_t celsius = -39.6 + (0.01 * data);
     uint16_t farenheit = (((9.0 * celsius)/5)+32);
     RADFREQ += TEMPFREQ;
@@ -114,7 +116,7 @@ event void RadioControl.stopDone(error_t err) {
             return;
           }
           rsm->error = result;
-          rsm->data = farehheit;
+          rsm->data = farenheit;
           if (call AMSend.send(AM_BROADCAST_ADDR, &packet, sizeof(radio_sense_msg_t)) == SUCCESS) 
           {
             lock = TRUE;
@@ -141,7 +143,7 @@ event void RadioControl.stopDone(error_t err) {
     {
       radio_sense_msg_t* rsm = (radio_sense_msg_t*)payload;
       lux = rsm->data;
-      printf("\nTemperature is: %d", farenheit);
+      printf("\nLuminosity is: %d", lux);
       
       if (lux >= LIGHTLIMIT)
       {

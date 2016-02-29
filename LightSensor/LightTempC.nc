@@ -8,15 +8,13 @@
 module LightTempC @safe()
 {
   uses interface Timer<TMilli> as Timer0;
-  //uses interface Timer<TMilli> as Timer2;
   uses interface Leds;
   uses interface Boot;
   uses interface Read<uint16_t> as Light;
-  //uses interface Read<uint16_t> as Temp;
-  interface Receive;
-  interface AMSend;
-  interface Packet;
-  interface SplitControl as RadioControl;
+  uses interface Receive;
+  uses interface AMSend;
+  uses interface Packet;
+  uses interface SplitControl as RadioControl;
     
 }
 
@@ -48,6 +46,7 @@ event void RadioControl.stopDone(error_t err) {
   
   event void Light.readDone(error_t result, uint16_t data)
   {
+    radio_sense_msg_t* rsm;
     uint16_t lux = 2.5 * 6250.0 * (data/4096.0);
 
     printf("\nLuminosity is: %d",lux);
