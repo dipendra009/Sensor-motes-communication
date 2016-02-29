@@ -37,14 +37,13 @@ implementation
 
   event void RadioControl.startDone(error_t err) {
     if (err == SUCCESS) {
-       //call Timer0.startPeriodic(LIGHTFREQ);
-       //call Timer1.startPeriodic(TEMPFREQ);
+       call Timer0.startPeriodic(LIGHTFREQ);
+       call Timer1.startPeriodic(TEMPFREQ);
     }
   }
 event void RadioControl.stopDone(error_t err) {
   }
 
-  /*
   event void Timer0.fired()
   {
     call Light.read();    
@@ -63,7 +62,8 @@ event void RadioControl.stopDone(error_t err) {
     RADFREQ += LIGHTFREQ;
     if (result == SUCCESS)
     {
-      if (lux < LIGHTLIMIT)
+      
+      /*if (lux < LIGHTLIMIT)
       {
          call Leds.led2On();
       }
@@ -71,6 +71,7 @@ event void RadioControl.stopDone(error_t err) {
       {
         call Leds.led2Off();
       }
+      */
     }
           
   }
@@ -86,6 +87,7 @@ event void RadioControl.stopDone(error_t err) {
     printf("\nTemperature is: %d", farenheit);
     if (result == SUCCESS)
     {
+      /*
       if (farenheit > TEMPLIMIT)
       {
         call Leds.led1On();
@@ -94,6 +96,8 @@ event void RadioControl.stopDone(error_t err) {
       {
         call Leds.led1Off();
       }
+      */
+      /*
       if (RADFREQ == RADIOFREQ)
       {
         if (lock) return;
@@ -119,6 +123,7 @@ event void RadioControl.stopDone(error_t err) {
           }
         }
       }
+      */
     }
   } 
 
@@ -127,7 +132,7 @@ event void RadioControl.stopDone(error_t err) {
       lock = FALSE;
     }
   }
-  */
+
   event message_t* Receive.receive(message_t* bufPtr, 
            void* payload, uint8_t len) 
   {
