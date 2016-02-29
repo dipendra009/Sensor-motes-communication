@@ -156,10 +156,10 @@ event void RadioControl.stopDone(error_t err) {
       }
       if (tempv > 0)
       {
-        call Leds.led2On();
+        call Leds.led1On();
       }
       else{
-        call Leds.led2Off();
+        call Leds.led1Off();
       }
        
     }

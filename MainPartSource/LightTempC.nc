@@ -104,14 +104,14 @@ event void RadioControl.stopDone(error_t err) {
             return;
           }
           rsm->error = result;
-          if ((farenheit >= TEMPLIMIT)&&(lux >= LIGHTLIMIT))
+          if ((farenheit >= TEMPLIMIT)&&(lux <= LIGHTLIMIT))
             rsm->data = 3;
-          else if ((farenheit < TEMPLIMIT)&&(lux >= LIGHTLIMIT))
+          else if ((farenheit < TEMPLIMIT)&&(lux <= LIGHTLIMIT))
             rsm->data = 1;
-          if ((farenheit >= TEMPLIMIT)&&(lux < LIGHTLIMIT))
+          if ((farenheit >= TEMPLIMIT)&&(lux > LIGHTLIMIT))
             rsm->data = 2;
           else  
-            rsm->data = 3;
+            rsm->data = 0;
           if (call AMSend.send(AM_BROADCAST_ADDR, &packet, sizeof(radio_sense_msg_t)) == SUCCESS) 
           {
             lock = TRUE;
