@@ -13,7 +13,6 @@ module LightTempC @safe()
   uses interface Leds;
   uses interface Boot;
   uses interface Receive;
-  uses interface AMSend;
   uses interface Packet;
   uses interface SplitControl as RadioControl;
     
