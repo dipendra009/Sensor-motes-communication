@@ -26,8 +26,6 @@ implementation
   event void Boot.booted()
   {
     call RadioControl.start();
-    //call Timer0.startPeriodic(LIGHTFREQ);
-    //call Timer1.startPeriodic(TEMPFREQ);
   }
 
   event void RadioControl.startDone(error_t err) {
@@ -50,7 +48,9 @@ event void RadioControl.stopDone(error_t err) {
     uint16_t lux = 2.5 * 6250.0 * (data/4096.0);
 
     printf("\nLuminosity is: %d",lux);
+    RADFREQ %= RADIOFREQ;
     RADFREQ += LIGHTFREQ;
+    
     if (result == SUCCESS)
     {
       if (lux < LIGHTLIMIT)
@@ -83,25 +83,6 @@ event void RadioControl.stopDone(error_t err) {
     }      
   }
 
-  /*
-  event void Temp.readDone(error_t result, uint16_t data)
-  {
-    uint16_t celsius = -39.6 + (0.01 * data);
-    uint16_t farenheit = (((9.0 * celsius)/5)+32);
-    printf("\nTemperature is: %d", farenheit);
-    if (result == SUCCESS)
-    {
-      if (farenheit > TEMPLIMIT)
-      {
-	call Leds.led1On();
-      }
-      else
-      {
-        call Leds.led1Off();
-      }
-
-    } 
-  } */
 
   event void AMSend.sendDone(message_t* bufPtr, error_t error) {
     if (&packet == bufPtr) {

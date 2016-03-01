@@ -59,7 +59,6 @@ event void RadioControl.stopDone(error_t err) {
     lux = 2.5 * 6250.0 * (data/4096.0);
 
     printf("\nLuminosity is: %d",lux);
-    RADFREQ += LIGHTFREQ;
     if (result == SUCCESS)
     {
       if (lux < LIGHTLIMIT)
@@ -80,6 +79,7 @@ event void RadioControl.stopDone(error_t err) {
     radio_sense_msg_t* rsm;
     uint16_t celsius = -39.6 + (0.01 * data);
     uint16_t farenheit = (((9.0 * celsius)/5)+32);
+    RADFREQ %= RADIOFREQ;
     RADFREQ += TEMPFREQ;
     
     printf("\nTemperature is: %d", farenheit);

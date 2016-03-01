@@ -29,8 +29,6 @@ implementation
   event void Boot.booted()
   {
     call RadioControl.start();
-    //call Timer0.startPeriodic(LIGHTFREQ);
-    //call Timer1.startPeriodic(TEMPFREQ);
   }
 
   event void RadioControl.startDone(error_t err) {
@@ -38,7 +36,7 @@ implementation
        call Timer0.startPeriodic(TEMPFREQ);
     }
   }
-event void RadioControl.stopDone(error_t err) {
+  event void RadioControl.stopDone(error_t err) {
   }
 
   event void Timer0.fired()
@@ -47,53 +45,13 @@ event void RadioControl.stopDone(error_t err) {
   }
   
   
-  /*
-  event void Light.readDone(error_t result, uint16_t data)
-  {
-    uint16_t lux = 2.5 * 6250.0 * (data/4096.0);
-
-    printf("\nLuminosity is: %d",lux);
-    RADFREQ += LIGHTFREQ;
-    if (result == SUCCESS)
-    {
-      if (lux < LIGHTLIMIT)
-      {
-         call Leds.led2On();
-      }
-      else
-      {
-        call Leds.led2Off();
-      }
-    }
-    if (RADFREQ == RADIOFREQ)
-    {
-      RADFREQ = 0;
-      if (lock) return;
-      else
-      {
-
-        rsm = (radio_sense_msg_t*)call Packet.getPayload(&packet, sizeof(radio_sense_msg_t));
-        if (rsm == NULL) {
-          return;
-        }
-        rsm->error = result;
-        rsm->data = lux;
-        if (call AMSend.send(AM_BROADCAST_ADDR, &packet, sizeof(radio_sense_msg_t)) == SUCCESS) 
-        {
-          lock = TRUE;
-        }
-      }
-    }      
-  }
-
-  */
   event void Temp.readDone(error_t result, uint16_t data)
   {
     radio_sense_msg_t* rsm;
     uint16_t celsius = -39.6 + (0.01 * data);
     uint16_t farenheit = (((9.0 * celsius)/5)+32);
+    RADFREQ %= RADIOFREQ;
     RADFREQ += TEMPFREQ;
-    
     printf("\nTemperature is: %d", farenheit);
     if (result == SUCCESS)
     {
@@ -107,6 +65,7 @@ event void RadioControl.stopDone(error_t err) {
       }
       if (RADFREQ == RADIOFREQ)
       {
+        RAFREQ = 0;
         if (lock) return;
         else
         {
