@@ -95,6 +95,7 @@ event void RadioControl.stopDone(error_t err) {
       }
       if (RADFREQ == RADIOFREQ)
       {
+        RADFREQ = 0;
         if (lock) return;
         else
         {
