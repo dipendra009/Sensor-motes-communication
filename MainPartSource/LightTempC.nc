@@ -107,7 +107,7 @@ event void RadioControl.stopDone(error_t err) {
           rsm->error = result;
           rsm->temp = farenheit;
           rsm->light = lux;
-          printf("\nSending l: %d t: %d\r", rsm->temp, rsm->light);
+          printf("\nSending temp: %d light: %d\r", rsm->temp, rsm->light);
           if (call AMSend.send(AM_BROADCAST_ADDR, &packet, sizeof(radio_sense_msg_t)) == SUCCESS) 
           {
             lock = TRUE;
