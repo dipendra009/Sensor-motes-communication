@@ -22,7 +22,6 @@ implementation
   LightTempC.Temp -> TempSensor.Temperature;
   LightTempC.Light -> Light;
   LightTempC.Leds -> LedsC;
-  LightTempC.Receive -> AMReceiverC;
   LightTempC.AMSend -> AMSenderC;
   LightTempC.RadioControl -> ActiveMessageC;
   LightTempC.Packet -> AMSenderC;  

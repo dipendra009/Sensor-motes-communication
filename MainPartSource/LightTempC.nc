@@ -16,7 +16,6 @@ module LightTempC @safe()
   uses interface Boot;
   uses interface Read<uint16_t> as Temp;
   uses interface Read<uint16_t> as Light;
-  uses interface Receive;
   uses interface AMSend;
   uses interface Packet;
   uses interface SplitControl as RadioControl;
