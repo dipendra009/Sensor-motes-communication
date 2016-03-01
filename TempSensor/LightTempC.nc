@@ -104,7 +104,7 @@ implementation
       lux = rsm->data;
       printf("\nLuminosity is: %d", lux);
       
-      if (lux >= LIGHTLIMIT)
+      if (lux <= LIGHTLIMIT)
       {
         call Leds.led2On();
       }
