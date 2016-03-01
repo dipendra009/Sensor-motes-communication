@@ -65,7 +65,7 @@ implementation
       }
       if (RADFREQ == RADIOFREQ)
       {
-        RAFREQ = 0;
+        RADFREQ = 0;
         if (lock) return;
         else
         {
