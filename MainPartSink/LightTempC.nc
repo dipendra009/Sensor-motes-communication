@@ -45,18 +45,18 @@ event void RadioControl.stopDone(error_t err) {
     else 
     {
       radio_sense_msg_t* rsm = (radio_sense_msg_t*)payload;
-      luxv = rsm->data % 2;
-      tempv = rsm->data / 2;
+      luxv = rsm->light;
+      tempv = rsm->temp;
       printf("\nData are : %d %d", luxv, tempv);
       
-      if (luxv == 1)
+      if (luxv < LIGHTLIMIT)
       {
         call Leds.led2On();
       }
       else{
         call Leds.led2Off();
       }
-      if (tempv == 1)
+      if (tempv > TEMPLIMIT)
       {
         call Leds.led1On();
       }

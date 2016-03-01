@@ -47,7 +47,7 @@ event void RadioControl.stopDone(error_t err) {
     radio_sense_msg_t* rsm;
     uint16_t lux = 2.5 * 6250.0 * (data/4096.0);
 
-    printf("\nLuminosity is: %d",lux);
+    printf("\nLuminosity is: %d\r",lux);
     RADFREQ %= RADIOFREQ;
     RADFREQ += LIGHTFREQ;
     

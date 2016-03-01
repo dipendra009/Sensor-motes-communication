@@ -106,15 +106,9 @@ event void RadioControl.stopDone(error_t err) {
             return;
           }
           rsm->error = result;
-          if ((farenheit >= TEMPLIMIT)&&(lux <= LIGHTLIMIT))
-            rsm->data = 3;
-          else if ((farenheit < TEMPLIMIT)&&(lux <= LIGHTLIMIT))
-            rsm->data = 1;
-          if ((farenheit >= TEMPLIMIT)&&(lux > LIGHTLIMIT))
-            rsm->data = 2;
-          else  
-            rsm->data = 0;
-          printf("\nSending %d\r", rsm->data);
+          rsm->temp = farenheit;
+          rsm->light = lux;
+          printf("\nSending l: %d t: %d\r", rsm->temp, rsm->light);
           if (call AMSend.send(AM_BROADCAST_ADDR, &packet, sizeof(radio_sense_msg_t)) == SUCCESS) 
           {
             lock = TRUE;
@@ -129,42 +123,4 @@ event void RadioControl.stopDone(error_t err) {
       lock = FALSE;
     }
   }
-
-  event message_t* Receive.receive(message_t* bufPtr, 
-           void* payload, uint8_t len) 
-  {
-    /*
-    uint16_t luxv, tempv;
-    if (len != sizeof(radio_sense_msg_t)) {
-      return bufPtr;
-    }
-    else 
-    {
-      radio_sense_msg_t* rsm = (radio_sense_msg_t*)payload;
-      luxv = rsm->data % 2;
-      tempv = rsm->data / 2;
-      printf("\nLuminosity is: %d", lux);
-      
-      if (luxv > 0)
-      {
-        call Leds.led2On();
-      }
-      else{
-        call Leds.led2Off();
-      }
-      if (tempv > 0)
-      {
-        call Leds.led2On();
-      }
-      else{
-        call Leds.led2Off();
-      }
-       
-    }
-    return bufPtr;
-    */
-  }  
-} 
-
-
-
+}
