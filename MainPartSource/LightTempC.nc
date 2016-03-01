@@ -58,7 +58,7 @@ event void RadioControl.stopDone(error_t err) {
   {
     lux = 2.5 * 6250.0 * (data/4096.0);
 
-    printf("\nLuminosity is: %d",lux);
+    printf("\nLuminosity is: %d\r",lux);
     if (result == SUCCESS)
     {
       if (lux < LIGHTLIMIT)
@@ -82,7 +82,8 @@ event void RadioControl.stopDone(error_t err) {
     RADFREQ %= RADIOFREQ;
     RADFREQ += TEMPFREQ;
     
-    printf("\nTemperature is: %d", farenheit);
+    printf("\nTemperature is: %d\r", farenheit);
+    printf("\nRADFREQ is : %d\r", RADFREQ);
     if (result == SUCCESS)
     {
       if (farenheit > TEMPLIMIT)
@@ -113,6 +114,7 @@ event void RadioControl.stopDone(error_t err) {
             rsm->data = 2;
           else  
             rsm->data = 0;
+          printf("\nSending %d\r", rsm->data);
           if (call AMSend.send(AM_BROADCAST_ADDR, &packet, sizeof(radio_sense_msg_t)) == SUCCESS) 
           {
             lock = TRUE;

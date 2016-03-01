@@ -47,7 +47,7 @@ event void RadioControl.stopDone(error_t err) {
       radio_sense_msg_t* rsm = (radio_sense_msg_t*)payload;
       luxv = rsm->data % 2;
       tempv = rsm->data / 2;
-      printf("\nLuminosity is: %d", lux);
+      printf("\nData are : %d %d", luxv, tempv);
       
       if (luxv == 1)
       {
