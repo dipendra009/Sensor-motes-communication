@@ -20,7 +20,7 @@ configuration OscilloscopeAppC { }
 implementation
 {
   components OscilloscopeC, MainC, ActiveMessageC, LedsC,
-    new TimerMilliC(), new DemoSensorC() as Sensor, 
+    new TimerMilliC(), 
     new AMSenderC(AM_OSCILLOSCOPE), new AMReceiverC(AM_OSCILLOSCOPE),
     new HamamatsuS10871TsrC() as LightSensor;
 ;
