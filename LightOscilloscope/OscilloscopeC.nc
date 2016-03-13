@@ -30,7 +30,6 @@ module OscilloscopeC @safe()
     interface AMSend;
     interface Receive;
     interface Timer<TMilli>;
-    interface Read<uint16_t>;
     interface Leds;
     interface Read<uint16_t> as Light;
 
@@ -125,7 +124,7 @@ implementation
 	  local.count++;
 	suppressCountChange = FALSE;
       }
-    if (call Read.read() != SUCCESS)
+    if (call Light.read() != SUCCESS)
       report_problem();
   }
 
@@ -138,8 +137,8 @@ implementation
     sendBusy = FALSE;
   }
 
-  event void Read.readDone(error_t result, uint16_t data) {
-    uint_16_t lux;
+  event void Light.readDone(error_t result, uint16_t data) {
+    uint16_t lux;
     if (result != SUCCESS)
       {
 	data = 0xffff;
