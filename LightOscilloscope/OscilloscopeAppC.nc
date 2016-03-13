@@ -32,7 +32,6 @@ implementation
   OscilloscopeC.AMSend -> AMSenderC;
   OscilloscopeC.Receive -> AMReceiverC;
   OscilloscopeC.Timer -> TimerMilliC;
-  OscilloscopeC.Read -> Sensor;
   OscilloscopeC.Leds -> LedsC;
 
   
