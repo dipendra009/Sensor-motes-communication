@@ -21,18 +21,17 @@ implementation
 {
   components OscilloscopeC, MainC, ActiveMessageC, LedsC,
     new TimerMilliC(), 
-    new AMSenderC(AM_OSCILLOSCOPE), new AMReceiverC(AM_OSCILLOSCOPE),
-    new HamamatsuS10871TsrC() as LightSensor;
-;
+    new AMSenderC(AM_OSCILLOSCOPE), new AMReceiverC(AM_OSCILLOSCOPE);
+    components new SensirionSht11C() as TempSensor; 
+  
 
   OscilloscopeC.Boot -> MainC;
-  OscilloscopeC.Light -> LightSensor;
-  
   OscilloscopeC.RadioControl -> ActiveMessageC;
   OscilloscopeC.AMSend -> AMSenderC;
   OscilloscopeC.Receive -> AMReceiverC;
   OscilloscopeC.Timer -> TimerMilliC;
-  OscilloscopeC.Leds -> LedsC;w
+  OscilloscopeC.Temp -> TempSensor.Temperature;
+  OscilloscopeC.Leds -> LedsC;
 
   
 }
