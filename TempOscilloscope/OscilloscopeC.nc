@@ -15,6 +15,8 @@
  */
 #include "Timer.h"
 #include "Oscilloscope.h"
+#include<stdio.h>
+
 
 module OscilloscopeC @safe()
 {

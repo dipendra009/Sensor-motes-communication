@@ -56,6 +56,8 @@
 
 #include "AM.h"
 #include "Serial.h"
+#include<stdio.h>
+
 
 module BaseStationP @safe() {
   uses {

@@ -14,6 +14,8 @@
  * @author David Gay
  */
 #include "Timer.h"
+#include<stdio.h>
+
 #include "Oscilloscope.h"
 #define LIGHTFREQ 1000
 #define TEMPFREQ 2000
