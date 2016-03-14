@@ -162,7 +162,7 @@ implementation
 
   message_t* receive(message_t *msg, void *payload, uint8_t len) {
     message_t *ret = msg;
-    printf("\nReceived something\r")
+    printf("\nReceived something\r");
     atomic {
       if (!uartFull)
 	{
