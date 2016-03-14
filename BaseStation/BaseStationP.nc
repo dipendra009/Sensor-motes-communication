@@ -160,7 +160,7 @@ implementation
 
   message_t* receive(message_t *msg, void *payload, uint8_t len) {
     message_t *ret = msg;
-
+    printf("\nReceived something\r")
     atomic {
       if (!uartFull)
 	{
@@ -214,8 +214,8 @@ implementation
       call Leds.led1Toggle();
     else
       {
-	failBlink();
-	post uartSendTask();
+      	failBlink();
+      	post uartSendTask();
       }
   }
 
@@ -224,14 +224,16 @@ implementation
       failBlink();
     else
       atomic
-	if (msg == uartQueue[uartOut])
-	  {
-	    if (++uartOut >= UART_QUEUE_LEN)
-	      uartOut = 0;
-	    if (uartFull)
-	      uartFull = FALSE;
-	  }
-    post uartSendTask();
+    	if (msg == uartQueue[uartOut])
+    	  {
+          call Leds.led1Toggle();
+    	    if (++uartOut >= UART_QUEUE_LEN)
+    	      uartOut = 0;
+    	    if (uartFull)
+    	      uartFull = FALSE;
+    	  }
+        printf("\nSent to serial port\r");
+        post uartSendTask();
   }
 
   event message_t *UartReceive.receive[am_id_t id](message_t *msg,

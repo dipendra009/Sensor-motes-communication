@@ -80,8 +80,10 @@ configuration BaseStationC {
 implementation {
   components MainC, BaseStationP, LedsC;
   components ActiveMessageC as Radio, SerialActiveMessageC as Serial;
+  components SerialPrintfC;
   
   MainC.Boot <- BaseStationP;
+  
 
   BaseStationP.RadioControl -> Radio;
   BaseStationP.SerialControl -> Serial;

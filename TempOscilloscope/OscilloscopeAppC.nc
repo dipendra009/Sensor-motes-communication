@@ -24,7 +24,8 @@ implementation
     new AMSenderC(AM_OSCILLOSCOPE), new AMReceiverC(AM_OSCILLOSCOPE);
     components new SensirionSht11C() as TempSensor; 
   
-
+    components SerialPrintfC;
+  
   OscilloscopeC.Boot -> MainC;
   OscilloscopeC.RadioControl -> ActiveMessageC;
   OscilloscopeC.AMSend -> AMSenderC;

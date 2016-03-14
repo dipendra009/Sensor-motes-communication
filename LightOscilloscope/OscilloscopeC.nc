@@ -78,7 +78,8 @@ implementation
 
   event message_t* Receive.receive(message_t* msg, void* payload, uint8_t len) {
     oscilloscope_t *omsg = payload;
-
+    printf("\nRecieved something \r");
+    
     report_received();
 
     /* If we receive a newer version, update our interval. 
@@ -106,23 +107,24 @@ implementation
   event void Timer.fired() {
     if (reading == NREADINGS)
       {
-	if (!sendBusy && sizeof local <= call AMSend.maxPayloadLength())
-	  {
-	    // Don't need to check for null because we've already checked length
-	    // above
-	    memcpy(call AMSend.getPayload(&sendBuf, sizeof(local)), &local, sizeof local);
-	    if (call AMSend.send(AM_BROADCAST_ADDR, &sendBuf, sizeof local) == SUCCESS)
-	      sendBusy = TRUE;
-	  }
-	if (!sendBusy)
-	  report_problem();
-
-	reading = 0;
-	/* Part 2 of cheap "time sync": increment our count if we didn't
-	   jump ahead. */
-	if (!suppressCountChange)
-	  local.count++;
-	suppressCountChange = FALSE;
+        	if (!sendBusy && sizeof local <= call AMSend.maxPayloadLength())
+        	  {
+        	    // Don't need to check for null because we've already checked length
+        	    // above
+        	    memcpy(call AMSend.getPayload(&sendBuf, sizeof(local)), &local, sizeof local);
+        	    if (call AMSend.send(AM_BROADCAST_ADDR, &sendBuf, sizeof local) == SUCCESS)
+        	      sendBusy = TRUE;
+        	  }
+        	if (!sendBusy)
+        	  report_problem();
+          printf("\nSent successfully\r");
+    
+        	reading = 0;
+        	/* Part 2 of cheap "time sync": increment our count if we didn't
+        	   jump ahead. */
+        	if (!suppressCountChange)
+        	  local.count++;
+        	suppressCountChange = FALSE;
       }
     if (call Light.read() != SUCCESS)
       report_problem();
@@ -141,12 +143,14 @@ implementation
     uint16_t lux;
     if (result != SUCCESS)
       {
-	data = 0xffff;
-	report_problem();
+	     data = 0xffff;
+	     report_problem();
       }
       lux = 2.5 * 6250.0 * (data/4096.0);
 
     if (reading < NREADINGS) 
+      printf("\nLuminosity is: %d\r",lux);
+    
       local.readings[reading++] = lux;
   }
 }

@@ -26,13 +26,15 @@ implementation
 ;
 
   OscilloscopeC.Boot -> MainC;
+  components SerialPrintfC;
+  
   OscilloscopeC.Light -> LightSensor;
   
   OscilloscopeC.RadioControl -> ActiveMessageC;
   OscilloscopeC.AMSend -> AMSenderC;
   OscilloscopeC.Receive -> AMReceiverC;
   OscilloscopeC.Timer -> TimerMilliC;
-  OscilloscopeC.Leds -> LedsC;w
+  OscilloscopeC.Leds -> LedsC;
 
   
 }
