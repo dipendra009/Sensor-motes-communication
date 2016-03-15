@@ -150,6 +150,6 @@ implementation
     printf("\nTemperature is: %d", farenheit);
     
     if (reading < NREADINGS) 
-      local.readings[reading++] = data;
+      local.readings[reading++] = farenheit;
   }
 }
